@@ -42,3 +42,6 @@ MVVN模式的框架有：Angular+Vue.js 和 Knockout+Ember.js等
 [与 React 相比，Vue.js 有哪些优点？](https://www.zhihu.com/question/266364449)
 
 [对比其他框架](https://cn.vuejs.org/v2/guide/comparison.html)
+
+
+----------
