@@ -33,10 +33,22 @@ MVVN模式的框架有：Angular+Vue.js 和 Knockout+Ember.js等
 
 ## Vue.js有什么优点 ##
 
-低耦合。视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的"View"上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。
-可重用性。你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。
-独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面设计。
-可测试。界面素来是比较难于测试的，而现在测试可以针对ViewModel来写
+**低耦合**
+
+视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的"View"上，当View变化的时候Model可以不变，当Model变化的时候
+View也可以不变。
+
+**可重用性**
+
+你可以把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。
+
+**独立开发**
+
+开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面设计。
+
+**可测试**
+
+界面素来是比较难于测试的，而现在测试可以针对ViewModel来写
 易用灵活高效
 
 [与 React 相比，Vue.js 有哪些优点？](https://www.zhihu.com/question/266364449)
@@ -45,3 +57,7 @@ MVVN模式的框架有：Angular+Vue.js 和 Knockout+Ember.js等
 
 
 ----------
+
+## 第一次页面加载会触发哪几个钩子 ##
+
+beforeCreate created beforeMount mounted
