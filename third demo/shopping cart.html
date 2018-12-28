@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+
+    <div id="demo">
+        total prices:{{price}}
+    </div>
+    
+    <script>
+    var app2 = new Vue({
+        el:'#abc',
+        data:{
+            msg:'i am the content of app2'
+        }
+    })    
+    //demand:Calculate the price of all items in the shopping cart   
+    var app = new Vue({
+        el:'#demo',
+        data:{//Storing objects in an array
+            package1:[{
+                name:'iphone',
+                price:'6999',
+                count:3
+            },
+            {
+                name:'ipad',
+                price:'3999',
+                count:6
+            }],
+            package2:[{
+                name:'imax',
+                price:'19999',
+                count:3
+            },
+            {
+                name:'ipadplus',
+                price:'5999',
+                count:6
+            }            ]
+        },
+        computed:{
+            price:function () {
+                var price = 0
+                for (var i =0 ; i < this.package1.length;i++){
+                    price += this.package1[i].price * this.package1[i].count
+                }
+                for (var j =0 ; j < this.package2.length;j++){
+                    price += this.package2[j].price * this.package2[j].count
+                }
+                //return price
+                return price + app2.msg
+            }
+        }
+    })
+    
+    </script>
+</body>
+</html>

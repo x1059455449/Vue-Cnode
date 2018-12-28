@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ShowNmae</title>
+</head>
+<body>
+    <div id="name">
+        fullname:{{fullName}}
+        <!-- fullname:{{firstName + lastName}} -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el: '#name',
+        data:{
+            firstName: 'guang',
+            lastNmae: 'zai'
+           
+        },
+        computed:{
+            fullName: {
+                get:function () {
+                    return this.firstName + ' ' + this.lastNmae
+                },
+                set:function (Newvalue) {
+                    //using ',' to Separate
+                    console.log('The set function is called')
+                    var Newname = Newvalue.split(',')//Separated into arrays
+                    this.firstName = Newname[0]
+                    this.lastNmae = Newname[1]
+                    return fullname = this.firstName + this.lastNmae
+                }
+            }
+        },
+        watch:{
+            firstName: function(newValue,oldValue){
+                this.firstName = newValue
+                console.log(this.firstName)
+            },
+            lastNmae:function(newValue,oldValue){
+                this.lasttName = newValue
+                console.log(this.lastName)
+            }
+        }
+    })
+    </script>
+    
+</body>
+</html>

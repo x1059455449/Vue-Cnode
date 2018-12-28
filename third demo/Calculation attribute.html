@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <title>Calculation attributet</title>
+</head>
+<body>
+    <div id="demo">
+        {{text}} <br>
+        {{text.split(',').reverse().join(',')}} <br>
+        <!-- 逻辑过长就会变得臃肿，难以维护，所以遇到复杂逻辑时，应当使用计算属性 -->
+        <!-- If the logic is too long, it will become bloated and difficult to maintain, so when you encounter complex logic, you should use the calculation properties.
+         -->
+        <!-- using calculation properties  -->
+        {{textReverse}} <br>
+        Calculate the cache of attributes : <br>
+        {{now}} <br>
+        <!-- 方法需要加括号 -->
+        Obtained by methods(Method needs to be bracketed): <br>
+        {{thistime()}}
+
+    </div>
+    <script type="text/javascript">
+    //demand：Change '123,456,789' into '789,456,123'
+    var app = new Vue({
+        el:'#demo',
+        data:{
+            text:'123,456,789',
+            msg:'hello'
+        },
+        //Define calculation properties
+        computed:{
+            //如果计算属性直接跟一个function，默认的就是getter函数
+            //If the computed property is directly followed by a function, the default is the getter function
+            textReverse:function () {
+            return this.text.split(',').reverse().join(',')
+            },
+            now:function () {
+                return Date.now()
+            }
+        },
+        methods:{
+            thistime:function () {
+                return Date.now()
+            }
+        }
+    })
+    
+    </script>
+</body>
+</html>
