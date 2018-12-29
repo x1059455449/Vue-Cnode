@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .divstyle {
+        height: 150px;
+        width:150px;
+        background: aqua;
+    }
+    .borderStyle {
+        border: 20px solid orangered;
+    }
+    
+    .active {
+        background-color: aqua;
+        height: 150px;
+        width:150px;
+    }
+    .error {
+        border: 20px solid orangered;
+        background-color: blueviolet;
+    }
+    
+    </style>
+</head>
+<body>
+    <div id="app1">
+        <span>对象语法</span>
+        <div :class="{divstyle:isActive,borderStyle:isBorder}"></div>
+    </div>
+    <div id="app2">
+        <span>数组语法</span>
+        <div :class="[activeCss,errorCss]"></div>
+    </div>
+    <div id="app3">
+        <span>内联样式</span>
+        <div :style="{'width': width + 'px','height': height +'px','border': border,'font-size': fontSize + 'px','color':color}">内联样式</div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    var app1 = new Vue({
+        el:'#app1',
+        data:{
+            isActive:true,
+            isBorder:true
+        }
+    })
+
+    var app2 = new Vue({
+        el:'#app2',
+        data:{
+            activeCss :'active',
+            errorCss : 'error'
+        }
+    })
+
+    var app3 = new Vue({
+        el:'#app3',
+        data:{
+            width:150,
+            height:150,
+            border: '1px solid red',
+            fontSize:16,
+            color:'blue'
+        }
+    })
+    
+    </script>
+</body>
+</html>

@@ -20,6 +20,6 @@ Vue官网：[https://cn.vuejs.org/](https://cn.vuejs.org/)
 
 Vue.js计算属性
 
-## 2018-12-28 ##
+## 2018-12-29 ##
 
 v-bind以及class与style的绑定

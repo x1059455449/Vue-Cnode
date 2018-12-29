@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .error {
+        border: 20px solid orangered;
+        background-color: blueviolet;
+    }
+    .active {
+        background-color: aqua;
+        height: 150px;
+        width:150px;
+    }
+    
+    
+    </style>
+</head>
+<body>
+    <div id="app">
+        对象和数组混合使用：
+        <div :class="[{active: isActive},errorCss]"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            isActive : true,
+            isBorder :true,
+            isBGC :true,
+            isBGC1:false,
+            activeCss : 'active',
+            errorCss :  'error'
+        },
+        computed:{
+            className:function () {
+                return {
+                    active : true
+                    //active : this.isActive && this.isBorder && this.isBGC
+                    //borderStyle:this.isBorder
+                }
+            }
+        },
+        methods:{
+            changeColor:function () {
+                if(this.isBGC){
+                    this.isBGC1 = true
+                    this.isBGC = false
+                }else{
+                    if(this.isBGC1){
+                        this.isBGC =  true
+                        this.isBGC1 = false
+                    }    
+                }    
+            }
+        }
+    })
+    
+    </script>
+</body>
+</html>

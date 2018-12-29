@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .divstyle {
+        height: 150px;
+        width:150px;
+        background: aqua;
+    }
+    .borderStyle {
+        border: 20px solid orangered;
+    }
+    .btnbackgroundcolor {
+        background-color: blueviolet;
+    }
+    .btnbackgroundcolor1 {
+        background-color: blue;
+    }
+    .active {
+        background-color: aqua;
+        height: 150px;
+        width:150px;
+    }
+    .error {
+        border: 20px solid orangered;
+        background-color: blueviolet;
+    }
+    </style>
+</head>
+<body>
+    <div  id="app">
+        <hr>
+        绑定class对象语法：对象的键是类名，值是布尔 <br>
+        <div :class="{divstyle:isActive,borderStyle:isBorder}">对象语法</div> <br>
+        <input type="button" value="dianji" :class="{btnbackgroundcolor:isBGC,btnbackgroundcolor1:isBGC1}" v-on:click ="changeColor"> <br>
+        <!-- 绑定一个计算属性 --> <hr>
+        <div :class="className">计算属性</div> <br>
+
+        <hr>  绑定class数组语法：数组中的成员直接对应类名 <br>
+        <div :class="[activeCss,errorCss]" style="color:white">数组语法</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    //需求：点一个按钮，来回切换背景颜色为两个不同颜色
+    var app = new Vue({
+        el:'#app',
+        data:{
+            isActive : true,
+            isBorder :true,
+            isBGC :true,
+            isBGC1:false,
+            activeCss : 'active',
+            errorCss :  'error'
+        },
+        computed:{
+            className:function () {
+                return {
+                    active : true
+                    //active : this.isActive && this.isBorder && this.isBGC
+                    //borderStyle:this.isBorder
+                }
+            }
+        },
+        methods:{
+            changeColor:function () {
+                if(this.isBGC){
+                    this.isBGC1 = true
+                    this.isBGC = false
+                }else{
+                    if(this.isBGC1){
+                        this.isBGC =  true
+                        this.isBGC1 = false
+                    }    
+                }    
+            }
+        }
+    })
+    
+    </script>
+
+</body>
+</html>
