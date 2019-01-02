@@ -5,12 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+    [v-cloak]:{
+        display:none;
+    }
+    </style>
 </head>
 <body>
     <div id="app">
         <hr>
-        v-cloak:    <br>
-        {{msg}}
+        v-cloak:  解决初始化慢导致页面闪动的最佳实践  <br>
+        <p v-cloak>{{msg}}</p>
+        <hr>
+        v-once: 定义它的元素和组件只渲染一次,后续都不再渲染
+        不添加v-once,改动oncedata的数据，改一次变一次，添加后只改变一次 <br>
+        {{oncedata}}
+        <p v-once>{{oncedata}}</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script>
@@ -21,7 +31,8 @@
     var app = new Vue({
         el:'#app',
         data:{
-            msg:'5465465465465'
+            msg:'5465465465465',
+            oncedata:'99999999999999999999999'
         }
     })
     
