@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container">
+        <p :class="{fontCol:isName,setBack:!isAge}" class="weight">{{name}}</p>
+        <i :class="addClass">{{name}}真好看！</i>
+    </div>
+    <script>
+        var myApp = new Vue({
+            el: "#container",
+            // 条件比较少  
+            data: {
+                isName: true,
+                isAge: false,
+                name: "张老师"
+            },
+            // 条件多的时候  
+            computed: {
+                addClass: function () {
+                    return {
+                        checked: this.isName && !this.isAge
+                    }
+                }
+            }
+        })  
+    </script>
+
+
+    <div id="container1">
+        <!-- 仅仅数组 -->
+        <div :class="[huClas,heClas]">{{name}}</div>
+        <!-- 三元表达式 -->
+        <div :class="[isAge?huClas:heClas,ju]">{{name}},还行吧！</div>
+        <!-- 该模式下类名huijia一直存在，还有一个类名根据isAge的真假来判断去留 -->
+        <div :class="arrMethod">{{name}},有点不好看</div>
+        <!-- 计算属性huijia一直存在，其他的根据情况 -->
+    </div>
+    <script>
+        var myApp1 = new Vue({
+            el: "#container1",
+            data: {
+                judge1: false,
+                isAge: true,
+                name: "功夫熊猫",
+                huClas: "haha",
+                heClas: "heihei",
+                ju: "huijia"
+            },
+            // 条件多的时候  
+            computed: {
+                arrMethod: function () {
+                    return [
+                        this.ju,
+                        {
+                            heClas: this.judge1 && this.isAge,
+                            huClas: this.isAge
+                        }
+                    ]
+                }
+            }
+        })  
+    </script>
+
+
+
+    <!-- 直接绑定 -->
+
+    <div id="container" :style="{color:color,fontSize:fontSize+'px'}">
+        {{house}}
+        <!-- 计算属性 -->
+        <h2 :style="style1">{{house}}</h2>
+        <!-- data中的 -->
+        <h3 :style="style">{{house}}</h3>
+    </div>
+    <script type="text/javascript" src="../../dist/vue.min.js"></script>
+    <script type="text/javascript">
+        var myApp = new Vue({
+            el: "#container",
+            data: {
+                house: "英格里拉大酒店",
+                color: "red",
+                fontSize: 18,
+                style: {
+                    background: "yellow",
+                    fontSize: 24 + "px"
+                }
+            },
+            // 计算属性  
+            computed: {
+                style1: function () {
+                    return {
+                        fontSize: this.fontSize + "px",
+                        fontWeight: "italic",
+                        border: "1px solid #ff0000"
+                    }
+                }
+            }
+        }) 
+    </script>
+    
+
+
+
+
+</body >
+</html >

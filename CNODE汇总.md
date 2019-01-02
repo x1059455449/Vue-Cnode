@@ -61,3 +61,14 @@ View也可以不变。
 ## 第一次页面加载会触发哪几个钩子 ##
 
 beforeCreate created beforeMount mounted
+
+----------
+
+## v-bind的变量语法，数组语法，对象语法 ##
+
+v-bind通常用来绑定属性的，格式是v-bind：属性名 = "值"，简写:属性名 = "值"
+变量语法：v-bind：class = "变量"，变量形式 ,这里的变量的值，通常是在css定义好的类名；
+
+数组语法：v-bind：class= "[变量1，变量2]" ，数组形式，其实跟上面差不多，只不过可以同时绑定多个class名；
+
+对象语法：v-bind:class = {classname1：boolean，classname2：boolean}，对象形式，这里的classname1（2）其实就是样式表中的类名，这里的boolean通常是一个变量，也可以是常量、计算属性等，这种方法也是绑定class最常用的方式。
