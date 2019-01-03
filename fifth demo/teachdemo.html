@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="box">
+     <ul>
+         <!--ng-repeat-->
+         <li v-for="item in arr">
+             <span>{{item.name}}</span>
+             <span>{{item.age}}</span>
+         </li>
+     </ul>
+    </div>
+    <script type="text/javascript">
+     new Vue({
+         el:'#box',
+         data(){
+             return{
+                 arr:[
+                     {"name":"zhao","age":12},
+                     {"name":"qian","age":12},
+                     {"name":"sun","age":12},
+                     {"name":"li","age":12}
+                 ]
+             }
+         }
+     })
+    </script>
+
+
+    <div id="box">
+        <input type="text" v-bind:value="msg">
+    </div>
+    
+    
+    
+    <script>
+        new Vue({
+            el: "#box",
+            data(){
+                return {
+                    msg: "12222"
+                }
+            }
+        })
+    </script>
+
+    <div id="box">
+        <!-- v-on -->
+        <button v-on:click="say">按钮</button>
+        <!--<button @click="say">按钮</button>-->
+    </div>
+    
+    <script>
+        new Vue({
+            el: "#box",
+            data(){
+                return {}
+            },
+            methods: {
+                say() {
+                    alert(111);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

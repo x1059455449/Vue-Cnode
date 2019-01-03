@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        v-model 的用法： <br>
+        <input type="text" v-model="value"> <br>
+        {{value}}
+        <br>
+        <textarea  cols="30" rows="2" v-model = "msg">我是多行文本的初始化值</textarea> <br>
+        {{msg}}
+        <hr>
+        单选框： v-model不生效<br>
+        单个单选框：<input type="radio"  v-bind:checked="oneradio"> <br>
+        多个单选框：v-model绑定的是选中的单选框的值 <br>
+        <!-- 记得写value的值 -->
+        a: <input type="radio" name="huchi" id="" value="a" v-model="check"> <br>
+        b: <input type="radio" name="huchi" id="" value="b" v-model="check"> <br>
+        c: <input type="radio" name="huchi" id="" value="c" v-model="check"> <br>
+        选在选中的是：{{check}}
+        <hr>
+        复选框： <br>
+        单个复选框：v-bind: <input type="checkbox"  v-bind:checked="oneradio"> <br>
+        单个复选框：v-model: <input type="checkbox" v-model="oneradio"> <br>
+        多个复选框：<br>
+        a: <input type="checkbox" value="a" v-model="checks"> <br>
+        b: <input type="checkbox" value="b" v-model="checks"> <br>
+        c: <input type="checkbox" value="c" v-model="checks"> <br>
+        现在选中的是：{{checks}}
+        <hr>
+        单选的下拉框： <br>
+        <select name="" id="" v-model="selected">
+            <option value="a">a</option>
+            <option value="b">b</option>
+            <option value="c">c</option>
+        </select>
+        现在选中的是：{{selected}}
+        <hr>
+        多选的下拉框： <br>
+        <select name="" id="" v-model="selectedmultiple" multiple>
+            <option value="a">a</option>
+            <option value="b">b</option>
+            <option value="c">c</option>
+            <option value="d">d</option>
+            <option value="e">e</option>
+        </select>
+        现在选中的是：选中时按住ctrl+鼠标左键即可选中{{selectedmultiple}}
+        <hr>
+        绑定值： <br>
+        单选按钮： <input type="radio" v-model="picked" v-bind:value="value"> <br>
+        现在选中的是：{{picked}}
+        <hr>
+        复选框按钮：选中和不选中的value不一样 
+        <input type="checkbox" v-model="toggle" :true-value="value1" :false-value="value2"> <br>
+        {{toggle}} <br>
+        被选中：{{toggle==value1}} <br>
+        未被选中：{{toggle==value2}} <br>
+        <hr>
+        下拉框：在select标签上绑定value值对option并没有影响<br>
+        <select v-model="valueselected" :value="{num:111}">
+            <option value="a" :value="{num:111}">a</option>
+            <option value="b">b</option>
+            <option value="c">c</option>
+        </select>
+        现在选中的是：{{valueselected}} {{typeof valueselected}} {{valueselected.num}}
+        <hr>
+        修饰符：<br>
+        lazy: <br>
+        <input type="text" v-model="inputStr"> -----{{inputStr}} <br>
+        <input type="text" v-model.lazy="lazyStr"> -----{{lazyStr}} <br>
+        number: <br>
+        <input type="text" v-model.number="isNUM"> -------{{typeof isNUM}} <br>
+        trim: <br>
+        <input type="text" v-model.trim="trimStr"> -------{{trimStr}}  <br> {{trimStr.split('').length}}
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            value:'',
+            msg:'',
+            oneradio:true,
+            check:'',
+            checks:[],
+            selected:[],
+            selectedmultiple:[],
+            picked:true,
+            value:'666',
+            toggle:true,
+            value1:'我被选中了',
+            value2:'我没有被选中',
+            valueselected:'',
+            inputStr:'',
+            lazyStr:'',
+            isNUM:'',
+            trimStr:''
+        }
+    })
+    
+    </script>
+</body>
+</html>

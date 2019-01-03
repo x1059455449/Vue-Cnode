@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        单个单选框：<br>
+        <input type="radio" v-bind:checked="onecheckbox"> <br>
+        多个单选框: <br>
+        aaa: <input type="radio" name="huchi" value="aaa" v-model="muticheck"> <br>
+        bbb: <input type="radio" name="huchi" value="bbb" v-model="muticheck"> <br>
+        ccc: <input type="radio" name="huchi" value="ccc" v-model="muticheck"> <br>
+        现在选中的是： {{muticheck}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            onecheckbox:true,
+            muticheck:[]
+        }
+    })
+
+    </script>
+</body>
+</html>

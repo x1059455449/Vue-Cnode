@@ -8,6 +8,8 @@
 
 Vue官网：[https://cn.vuejs.org/](https://cn.vuejs.org/)
 
+Vue-Cnode:[https://github.com/x1059455449/Vue-Cnode](https://github.com/x1059455449/Vue-Cnode)
+
 ## 2018-12-26 ##
 
 主要更新了MVVN和Vue.js的优点
