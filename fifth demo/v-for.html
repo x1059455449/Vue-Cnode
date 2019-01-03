@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        v-for:v-for 一定是写在要便利的元素上 <br>
+        1 遍历多个对象 <br>
+        <ul>
+            <li v-for = "msg in vuemessage">{{msg.name}}</li>
+        </ul>
+        <hr>
+        带索引的写法：()内第一个变量，代表item,第二个代表 index
+        <ul>
+            <li v-for = "(msg,index) in vuemessage">{{index}}{{msg.name}}</li>
+        </ul>
+        <hr>
+        2 遍历一个对象的多个属性 <br>
+        <span v-for = "value in numbers">{{value}}</span>
+        <br>
+        拿到value,key,index,v-k-i外开：
+        <div v-for = "(value,key,index) in numbers">{{index}},{{key}},{{value}}</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            vuemessage:[
+                {name: '111'},
+                {name: '222'},
+                {name: '333'}
+            ],
+            numbers:{
+                value1:'aaa',
+                value2:'bbb',
+                value3:'ccc',
+            }
+        }
+    })
+    </script>    
+</body>
+</html>

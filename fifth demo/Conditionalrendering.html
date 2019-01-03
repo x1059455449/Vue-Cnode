@@ -23,13 +23,13 @@
             密码：<input type="text" placeholder="请输出密码" key = "psd">
         </div>
         <button v-on:click = "toggleType">点击按钮切换</button>
-        </div>    
         <hr>
         v-show:显现与否，取决于他的布尔值
         <!-- v-if:实时渲染：页面显示时就渲染，不现实，就会移除，可以从DOM元素结构上看到
         v-show:v-show的元素永远存在页面中，实时改变了css的diaplay的属性 -->
         <p v-show = "9>5">我被渲染</p>
-        <p v-show = "9>a">我被渲染</p>
+        <p v-show = "9>a">我bu被渲染</p>
+        </div>    
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script>
     var app = new Vue({

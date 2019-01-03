@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        点击次数：{{count}}
+        <!-- 写方法一次要加括号 -->
+        <button @click = "handle()">点击加1，不传参数</button>
+        <button @click = "handle(8)">点击加8，传参数</button>
+        <!-- 以下输出[object MouseEvent] -->
+        <button @click = "handle">不加括号</button>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            //arr:['book','pen','pencil']
+            count:0
+        },
+        methods:{
+            handle:function (count) {
+                count = count || 1 //传了count那就用传入的，不是的话就默认为1
+                this.count += count
+            }
+        }
+    })
+    </script>
+</body>
+</html>

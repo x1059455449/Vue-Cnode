@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <hr>
+        stop用法： <br>
+        <div @click.self = "divclick" style="height:100px;width: 100px;background-color: aqua">
+            <button @click.stop = "btnclick">dianji</button>
+        </div>
+        <hr>
+        prevent用法：每次提交表单都会重载页面 <br>
+        <form action="" @submit.prevent = "hangle">
+            <button type="submit">提交表单</button>
+        </form>
+        <hr>
+        once: <br>
+        <button @click = "onceclick">无限次</button>
+        <button @click.once = "onceclick">一次</button>
+        <hr>
+        监听键盘事件：<br>
+        <input type="text" @keyup.13 ="submit">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            count:0
+        },
+        methods:{
+            divclick:function () {
+                alert("div被点击了")
+            },
+            btnclick:function (){
+                alert('btn被点击了')
+            },
+            hangle:function () {
+                alert('我不重载页面，也不刷新')
+            },
+            onceclick:function () {
+                alert('cishu')
+            },
+            submit:function () {
+                alert('ENter')
+            }
+        }
+    })
+    </script>
+</body>
+</html>
