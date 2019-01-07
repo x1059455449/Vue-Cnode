@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件的使用方法</title>
+</head>
+<body>
+    <div id="app">
+        点击添加物品进入购物车：{{count}} <br>
+        <son-component @onchangenunber="changenunber"></son-component>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+
+    Vue.component('son-component',{
+        template:'<div>\
+                <button @click="plus">点击+1</button>\
+                <button @click="reduce">点击-1</button>\
+        </div>',
+        methods:{
+            plus:function () {
+                this.count += 1
+                this.$emit('onchangenunber',this.count)
+            },
+            reduce:function () {
+                if(this.count === 0) return
+                this.count -= 1
+                this.$emit('onchangenunber',this.count)
+            }
+        },
+        data:function () {
+            return {
+                count:0
+            }
+        }
+    })    
+    var app = new Vue({
+        el:'#app',
+        data:{
+            count:0
+        },
+        methods:{
+            changenunber:function (value) {
+                this.count = value
+            }
+        }
+    })
+    </script>
+
+</body>
+</html>

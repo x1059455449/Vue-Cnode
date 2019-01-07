@@ -72,3 +72,7 @@ v-bind通常用来绑定属性的，格式是v-bind：属性名 = "值"，简写
 数组语法：v-bind：class= "[变量1，变量2]" ，数组形式，其实跟上面差不多，只不过可以同时绑定多个class名；
 
 对象语法：v-bind:class = {classname1：boolean，classname2：boolean}，对象形式，这里的classname1（2）其实就是样式表中的类名，这里的boolean通常是一个变量，也可以是常量、计算属性等，这种方法也是绑定class最常用的方式。
+
+## 简述v-model的作用 ##
+
+v-model的作用是:用于在表单类元素上双向绑定事件

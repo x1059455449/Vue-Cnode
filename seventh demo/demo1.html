@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件的使用方法</title>
+</head>
+<body>
+    <div id="app" style="border:1px solid blue ; height: 400px;">
+        <my-component msg="我是通过使用props来传递父组件的信息"></my-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+
+    Vue.component('my-component',{
+        props:['msg'],
+        template:'<div style="border:1px solid red ; height: 100px">{{msg}}</div>'
+    })    
+    var app = new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+    </script>
+
+</body>
+</html>

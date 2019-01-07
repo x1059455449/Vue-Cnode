@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件的使用方法</title>
+</head>
+<body>
+    <div id="app" style="border:1px solid blue">
+        <my-component></my-component>
+        <app-component></app-component>
+        <table>
+            <!-- <my-component></my-component> 使用is属性来挂载-->
+            <tbody is="my-component"></tbody>
+        </table>
+        table中只能含有td,tr,tbody这些元素            
+    </div>
+    <div id="bpp" style="border:1px solid red">
+        <my-component></my-component>
+        <app-component></app-component>
+        <!-- 不起作用，在哪里定义就只能在哪里使用，app的不能再bpp中使用 -->
+    </div>
+    html标签受限： <br>
+    <!-- 对应的内容：<div id="app"><div>我是一个组件</div></div> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    //语法    
+    // Vue.component(tag,{
+    //     template:'<div></div>'
+    // })
+    //注册组件,以下为全局注册
+    Vue.component('my-component',{
+        template:'<div>我是一个组件</div>'
+    })    
+    var app = new Vue({
+        el:'#app',
+        components:{
+            'app-component':{
+                template:'<div>我是app局部注册的一个组件</div>'
+            }
+        },
+        data:{
+
+        }
+    })
+
+    var bpp = new Vue({
+        el:'#bpp',
+        data:{
+
+        }
+    })
+    </script>
+
+</body>
+</html>

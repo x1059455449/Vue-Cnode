@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据验证</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="f">
+        <type-component :a="a" :b="b" :c="c" :d="d" :f="f" :e="e" :g="g" :h="h"></type-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    //语法    
+    // Vue.component(tag,{
+    //     template:'<div></div>'
+    // })
+    
+    Vue.component('type-component',{
+        props:{
+            a:Number,
+            b:String,
+            c:[String,Number],
+            d:{
+                type:Boolean,
+                default:true
+            },
+            f:{
+                type:Number,
+                required:true
+            },
+            e:{
+                type:Array,
+                default:function () {
+                    return [999]
+                }
+            },
+            g:{
+                validator:function (value) {
+                    return value > 10
+                }
+            },
+            h:{
+                type:Function
+            }
+        },
+        template:'<div>{{a}}--{{b}}--{{c}}--{{d}}--{{f}}--{{e[0]}}</div>'
+    })    
+    var app = new Vue({
+        el:'#app',
+        data:{
+            a:1,
+            b:'qqqqwwwweeerrr',
+            c:22,
+            d:false,
+            f:54564654,
+            e:[],
+            g:15,
+            h:console.log()
+        }
+    })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态组件</title>
+    <style>
+    #app {
+        height: 300px;
+        width: 400px;
+        border: 1px solid aqua;
+        margin: 0 auto;
+    }
+    img {
+        height: 100%;
+        width: 100%;
+    }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <component :is="thisview"></component>
+        <button @click="changeView('A')">点击切换A</button>
+        <button @click="changeView('B')">点击切换B</button>
+        <button @click="changeView('C')">点击切换C</button>
+        <button @click="changeView('D')">点击切换D</button>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    //需求：通过点击不同的按钮来切换不同的视图
+    Vue.component('compA',{
+        template:'<div><img src="http://img04.tooopen.com/images/20130131/tooopen_16570580.jpg" alt=""></div>'
+    })
+    Vue.component('compB',{
+        template:'<div><img src="http://pic25.nipic.com/20121114/10197997_142001549000_2.jpg" alt=""></div>'
+    })
+    Vue.component('compC',{
+        template:'<div><img src="http://pica.nipic.com/2008-01-04/20081485653419_2.jpg" alt=""></div>'
+    })
+    Vue.component('compD',{
+        template:'<div><img src="http://pic11.nipic.com/20101127/3320946_085647638811_2.jpg" alt=""></div>'
+    })       
+    var app = new Vue({
+        el:'#app',
+        data:{
+            thisview:'compA'
+        },
+        methods:{
+            changeView:function (tag) {
+                this.thisview = 'comp' + tag
+            }
+        }
+    })
+    </script>
+
+</body>
+</html>

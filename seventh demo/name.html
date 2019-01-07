@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件的使用方法</title>
+</head>
+<body>
+    <div id="app">
+        <app-component></app-component>
+        <app-componentone></app-componentone>
+
+        <button @click="plus">{{count}}</button>
+        <button @click="plus">{{count}}</button>
+
+        <btn-component></btn-component>
+        <btn-component></btn-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    //语法    
+    // Vue.component(tag,{
+    //     template:'<div></div>'
+    // })
+    
+    Vue.component('my-component',{
+        template:'<div></div>'
+    })    
+    var app = new Vue({
+        el:'#app',
+        components:{
+            'app-component':{
+                template:'<div>我是app局部注册的一个组件</div>'
+            },
+            'app-componentone':{
+                template:'<div>我是app局部注册的2个组件</div>'
+            },
+            'btn-component':{
+                template:'<button @click="count++">{{count}}</button>',
+                data:function () {
+                    return {
+                        count:0
+                    }
+                }
+            }
+        },
+        data:{
+            count:1
+        },
+        methods:{
+            plus:function () {
+                this.count++//两个按钮一起加1
+            }
+        }
+    })
+    </script>
+
+</body>
+</html>

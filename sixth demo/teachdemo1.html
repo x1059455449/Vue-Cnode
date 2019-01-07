@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>v-model指令</title>
+        <script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+    </head>
+    <body>
+        <div id="app4">
+            {{price}}<br>
+            <input v-model="price"><!-- 下行注释的语法糖 -->
+            <!-- <input :value="price" @input="price = $event.target.value"> -->
+        </div>
+        <script>
+            new Vue({
+                el: '#app4',
+                data: {
+                    price: '20'
+                }
+            });
+        </script>
+    </body>
+</html>

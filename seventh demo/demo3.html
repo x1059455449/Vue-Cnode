@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件的使用方法</title>
+</head>
+<body>
+    <div id="app">
+        <my-acomponent></my-acomponent>
+        <my-bcomponent></my-bcomponent>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    Vue.component('my-acomponent',{
+        template:'<div><button @click="pass">点击向B中传递信息（console.log()）</button></div>',
+        data:function () {
+            return {
+                AtoB:'A向B组件传递的信息'
+            }
+        },
+        methods:{
+            pass:function () {
+                this.$root.bus.$emit('atob',this.AtoB)
+            }
+        }
+    })
+    Vue.component('my-bcomponent',{
+        template:'<div></div>',
+        created:function () {
+            this.$root.bus.$on('atob',function (value) {
+                console.log(value)
+            })
+        }
+    })    
+    var app = new Vue({
+        el:'#app',
+        data:{
+            bus:new Vue()
+        }
+    })
+    </script>
+
+</body>
+</html>

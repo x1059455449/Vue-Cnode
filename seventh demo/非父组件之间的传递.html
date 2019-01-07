@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非父组件之间的传递</title>
+</head>
+<body>
+    <div id="app">
+        <my-acomponent ref="a"></my-acomponent>
+        <my-bcomponent ref="b"></my-bcomponent>
+
+        <child-component ref="c"></child-component> {{msg}} <br>
+
+        <button @click="setchild">父组件的按钮，现在要拿到子组件的内容</button>
+        {{fromchild}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    
+    Vue.component('my-acomponent',{
+        template:'<div><button @click="handle">点击向组件B传递信息</button></div>',
+        data:function () {
+            return {
+                AtoB:'A向B传递的信息',
+                msg:'aaaaaa'
+            }
+        },
+        methods:{
+            handle:function () {
+                //通过根目录下的bus中介来拿到atob，并且用$emit来出发atob事件
+                this.$root.bus.$emit('atob',this.AtoB)
+            }
+        }
+    })
+    Vue.component('my-bcomponent',{
+        template:'<div></div>',
+        //A组件在实例创建的时候监听atob事件
+        created:function () {
+            this.$root.bus.$on('atob',function (value) {
+                alert(value)
+            })
+        },
+        data:function () {
+            return {
+                msg:'bbbbbbbbbbb'
+            }
+        }
+    })
+    //子组件改变父组件的内容
+    Vue.component('child-component',{
+        template:'<div><button @click="setparent">点击修改父组件的内容</button></div>',
+        methods:{
+            setparent:function () {
+                this.$parent.msg = "通过点击已经修改了父组件的内容"
+            }
+        },
+        data:function () {
+            return {
+                msg:'cccccccccccc'
+            }
+        }
+        
+    })
+        
+    var app = new Vue({
+        el:'#app',
+        data:{
+            //bus中介
+            bus:new Vue(),
+            msg:'数据还没修改',
+            fromchild:'还没有拿到子组件的内容'
+        },
+        methods:{
+            setchild:function () {
+                //用来拿到子组件的内容
+                this.fromchild = this.$refs.a.msg
+            }
+        }
+    })
+    </script>
+
+</body>
+</html>

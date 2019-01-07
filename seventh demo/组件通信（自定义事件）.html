@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件通信（自定义事件）</title>
+</head>
+<body>
+    <div id="app">
+        {{total}}
+        <son-component @change="changetotal"></son-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    
+    Vue.component('son-component',{
+        template:'<div>\
+            <button @click="handleincrease">+1000</button> \
+            <button @click="handlereduce">-1000</button>\
+        </div>',
+        data:function () {
+            return {
+                count:2000
+            }
+        },
+        methods:{
+            handleincrease:function () {
+                this.count += 1000
+                this.$emit('change',this.count)
+            },
+            handlereduce:function () {
+                this.count -= 1000
+                this.$emit('change',this.count)
+            }
+        }
+    })    
+    var app = new Vue({
+        el:'#app',
+        data:{
+            total:2000
+        },
+        methods:{
+            changetotal:function (value) {
+                //此处的value就是子组件传进来的的值,对传进来的值进行实时改变
+                //value就等于this.count
+                this.total = value
+            }
+        }
+    })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>作用域插槽</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <my-component>
+            <!-- slot-scope很重要，后面prop为一个临时变量，可以随意填写 -->
+            <!-- 除了name都可以拿到 -->
+            <!-- Vue在2.5.0版本以前 -->
+            <!-- <template slot="abc" slot-scope="prop">
+                {{prop.text}}
+                {{prop.ss}}
+            </template> -->
+            <!-- Vue在2.5.0版本以后 -->
+            <p slot="abc" slot-scope="prop">
+                {{prop.text}}
+                {{prop.ss}}
+            </p>
+        </my-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        Vue.component('my-component', {
+            template: '<div><slot text="我是来自子组件的内容" ss="5445646fdfd" name="abc"></slot></div>'
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+
+            }
+        })
+    </script>
+
+</body>
+
+</html>

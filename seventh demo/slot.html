@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单个插槽</title>
+</head>
+<body>
+    <div id="app">
+        <my-component>
+            <p>我是父组件的内容</p>
+        </my-component>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    //语法    
+    // Vue.component(tag,{
+    //     template:'<div></div>'
+    // })
+    
+    Vue.component('my-component',{
+        template:'<div>\
+        <slot>\
+            如果父组件没有插入内容，我就作为默认出现\
+        </slot>\
+        </div>'
+    })    
+    var app = new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+    </script>
+
+</body>
+</html>
