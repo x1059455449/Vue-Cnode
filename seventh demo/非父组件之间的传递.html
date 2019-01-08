@@ -49,7 +49,7 @@
             }
         }
     })
-    //子组件改变父组件的内容
+    //子组件改变父组件的内容 父链：this.$parent
     Vue.component('child-component',{
         template:'<div><button @click="setparent">点击修改父组件的内容</button></div>',
         methods:{
@@ -75,6 +75,7 @@
         },
         methods:{
             setchild:function () {
+                //子链：this.$refs
                 //用来拿到子组件的内容
                 this.fromchild = this.$refs.a.msg
             }

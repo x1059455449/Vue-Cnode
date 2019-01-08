@@ -8,7 +8,7 @@
 
 Vue官网：[https://cn.vuejs.org/](https://cn.vuejs.org/)
 
-Vue-Cnode:[https://github.com/x1059455449/Vue-Cnode](https://github.com/x1059455449/Vue-Cnode)
+Vue-Cnode相关博客:[https://github.com/x1059455449/Vue-Cnode](https://github.com/x1059455449/Vue-Cnode)
 
 ## 2018-12-26 ##
 
@@ -40,3 +40,7 @@ Vue的内置指令
 ## 2019-01-06 ##
 
 自定义组件
+
+## 2019-01-08 ##
+
+render函数

@@ -76,3 +76,11 @@ v-bind通常用来绑定属性的，格式是v-bind：属性名 = "值"，简写
 ## 简述v-model的作用 ##
 
 v-model的作用是:用于在表单类元素上双向绑定事件
+
+## 对组件的理解 ##
+
+[https://www.jianshu.com/p/79e4df63f31f](https://www.jianshu.com/p/79e4df63f31f)
+
+[https://segmentfault.com/a/1190000010527064](https://segmentfault.com/a/1190000010527064)
+
+组件 (Component) 是 Vue.js 最强大的功能之一。组件可以扩展 HTML 元素，封装可重用的代码。在较高层面上，组件是自定义元素，Vue.js 的编译器为它添加特殊功能。在有些情况下，组件也可以表现为用 is 特性进行了扩展的原生 HTML 元素。所有的 Vue 组件同时也都是 Vue 的实例，所以可接受相同的选项对象 (除了一些根级特有的选项) 并提供相同的生命周期钩子

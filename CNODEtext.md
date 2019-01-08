@@ -431,5 +431,500 @@ Vue提供了v-modal指令，用于在**表单类元素**上双向绑定事件
 
 ## 2019-01-04 ##
 
-## 七 可复用性的组件详解 ##
+## 七 可复用性的组件详解（涉及的代码可以在github的seventh demo查看） ##
 
+## 使用组件的原因 ##
+
+作用：提高代码的可复用性
+
+##  组件的使用方法 ##
+
+> 全局注册
+
+	Vue.component('my-component',{
+		template:'<div>我是组件的内容</div>'
+	})
+
+- 优点：所有的Vue实例都可以使用
+- 缺点：权限太大，容错率降低
+
+> 局部注册
+
+	var app = new Vue({
+		el:'#app',
+		components:{
+			'my-component':{
+				template: '<div>我是组件的内容</div>'
+				}
+			}
+	})
+
+> 受限制的情况
+
+Vue组件的模板在某些情况下会受到html标签的限制，如<table\>中只能含有<td\>,<tr\>,<tbody\>这些元素，所以直接在table中使用组件是无效的，**此时可以使用is属性来挂载组件**
+
+	<table>
+		<tbody is="my-component"></tbody>
+	</table>
+
+##  组件使用的技巧 ##
+
+1. 推荐使用小写字母+"-"进行命名（）必须，如child,my-component等对组件进行命名
+2. template中的内容**必须**被一个DOM元素包括，也可以嵌套
+3. 在组件的定义中，除了template之外的还有其他选项，诸如data,computed,methods等
+4. **data必须是一个方法**
+
+## 使用props传递数据 父组件向子组件传递数据 ##
+
+1. 在组件中使用props来从父组件接受参数，**请注意**，在props中定义的属性，都可以在组件中直接使用
+2. **props来自父级，而组件的data return的数据就是组件自己的数据，两种抢矿的作用域就是组件本身，可以在template，computed，methods中直接使用**
+3. props的值有两种，一种是数组，一种是对象
+4. 可以使用v-bind动态绑定父组件来的内容
+
+## 单向数据流 ##
+
+- **解释：**通过props传递数据是单向的，也就是父组件数据变化时会传递给子组件，但是反过来不行
+- **目的：**尽可能将父子组件解稿，避免子组件无意中修改了父组件的状态
+- **应用场景：**业务中常用到的两种需要改变props的情况
+
+**两种情况**
+
+> 第一种
+
+一种是父组件传递初始值进来，子组件将它作为初始值保存起来，在自己的作用域下可以随意修改和使用。这种情况可以在组件data内再声明一个数据，引用父组件的prop
+
+1. 步骤一：注册组件
+2. 步骤二：将父组件的数据传递进来，并在子组件中庸props接收
+3. 步骤三：将传递进来的数据通过初始值保存起来
+
+代码示例：
+
+	<div id="app">
+		<my-comp init-count="666"></my-comp>
+	</div>
+	<script>
+	var app = new Vue({
+		el:'#app',
+		components:{
+			'my-comp':{
+				props:['init-count'],
+				template:'<div>{{init-count}}</div>',
+				data:function () {
+					return{
+					count:this.initCount
+					}
+				}
+			}
+		}
+	})
+	</script>
+
+> 第二种
+
+另一种情况就是prop作为需要被转变的原始值传入。这种情况使用计算属性即可
+
+1. 步骤一：注册组件
+2. 步骤二：将父组件的数据传递进来，并在子组件中用props接收
+3. 步骤三：将传递进来的数据通过计算属性进行重新计算
+
+代码示例：
+
+	<inputtype="text" v-model="width">
+	<my-comp :width="width"></my-comp>
+	<script>
+	var app = new Vue({
+		el:'#app',
+		data:{
+			width:''
+		},
+		components:{
+			'my-comp':{
+				props:['init-count','width'],
+				template:'<div :style="style">{{init-count}}</div>',		
+			computed:{
+				style:function () {
+					return{
+						width:this.width+'px',
+						background:'red'
+						}
+					}
+				}
+			}
+		}
+	})
+	</script>
+
+## 数据验证 ##
+
+### 命名方式 ###
+
+vue组件中camelCased (驼峰式) 命名与 kebab­case（短横线命名）
+
+**注意事项**
+
+1. **在html中, myMessage 和 mymessage 是一致的,,因此在组件中的html中使用必须使用kebab­case（短横线）命名方式。强调：在html中不允许使用驼峰**
+2. **在组件中, 父组件给子组件传递数据必须用短横线。在template中，必须使用驼峰命名方式，若为短横线的命名方式。则会直接保错**
+3. **在组件的data中,用this.xxx引用时,只能是驼峰命名方式。若为短横线
+的命名方式则会报错**
+
+### 验证类型 ###
+
+- String
+- Number
+- Boolean
+- Object
+- Array
+- Function
+
+代码示例：
+
+	Vue.component （ ’ my-compopent ’， ｛
+		props : {
+			//必须是数字类型
+			propA : Number ,
+			//必须是字符串或数字类型
+			propB : [String , Number] ,
+			//布尔值，如果没有定义，默认值就是 true
+			propC: {
+				type : Boolean ,
+				default : true
+			},
+			//数字，而且是必传
+			propD: {
+				type: Number ,
+				required : true
+			},
+			//如果是数组或对象，默认值必须是一个函数来返回
+			propE: {
+			type : Array ,
+				default : function () {
+				return [] ;
+			}
+			},
+			//自定义一个验证函数
+			propF: {
+				validator : function (value) {
+				return value > 10;
+			}
+			}
+		}
+	});
+
+## 组件通信 ##
+
+组件关系可分为父子通信组件、兄弟通信组件、跨级租间通信
+
+> 自定义事件—子组件给父组件传递数据
+
+使用v-on除了监听DOM事件外，还可以用于组件之间的自定义事件。
+
+**JavaScript 的设计模式：**观察者模式，dispatchEvent 和 addEventListener这两个方法。 Vue组件也有与之类似的一套模式,子组件用$emit（）来 触发事件，父组件用$on()来监昕子组件的事件
+
+**步骤**
+
+1. 自定义事件
+2. 在子组件中庸$emit触发事件，第一个参数是事件名，后面参数是要传递的数据
+3. **在自定义时间中用一个参数来接受**
+
+代码示例：
+
+	<div id="app">
+		<p>您好,您现在的银行余额是{{total}}元</p>
+		<btn-compnent @change="handleTotal"></btn-compnent>
+	</div>
+	<script src="js/vue.js"></script>
+	<script>
+		var app = new Vue({
+			el:'#app',
+			data:{
+				total:0
+			},
+			components:{
+				'btn-compnent':{
+					template:'<div>\
+						<button @click="handleincrease">+1</button> \
+						<button @click="handlereduce">-1</button>\
+						</div>',
+					data:function(){
+						return {
+							count:0
+						}
+					},
+					methods:{
+						handleincrease :function () {
+							this.count++;
+							this.$emit('change',this.count);
+						},
+						handlereduce:function () {
+							this.count--;
+							this.$emit('change',this.count);
+						}
+					}
+				}
+			},
+			methods:{
+				handleTotal:function (total) {
+					this.total = total;
+				}
+			}
+		})
+	</script>
+
+> 在组件中使用v­model
+
+$emit代码，这行代码实际上会触发一个Input事件，'input'后的参数就是传递给v-model绑定的属性的值
+
+v-model其实就是一个语法糖，这背后的两个操作：
+
+	1 v-bind绑定一个value值
+	
+	2 v-on指令给当前元素绑定input事件
+
+要使用v-model，要做到：
+
+	1 接收 一个value属性
+	
+	2 在有新的value时触发input事件
+
+代码示例：
+
+	<div id="app">
+		<p>您好,您现在的银行余额是{{total}}元</p>
+		<btn-compnent v-model="total"></btn-compnent>
+	</div>
+	<script src="js/vue.js"></script>
+	<script>
+		var app = new Vue({
+			el:'#app',
+			data:{
+				total:0
+			},
+			components:{
+				'btn-compnent':{
+					template:'<div>\
+						<button @click="handleincrease">+1</button> \
+						<button @click="handlereduce">-1</button>\
+					</div>',
+					data:function(){
+						return {
+						count:0
+						}
+					},
+					methods:{
+					handleincrease :function () {
+						this.count++;
+						----------------------注意观察.这一行,emit的是input事件----------------
+						this.$emit('input',this.count);
+					},
+					handlereduce:function () {
+						this.count--;
+						this.$emit('input',this.count);
+					}
+					}
+				}
+			},
+			methods:{
+				/* handleTotal:function (total) {
+				this.total = total;
+				}*/
+			}
+		})
+	</script>
+
+> 非父组件之间的通信
+
+[官网：非父组件之间的通信](https://cn.vuejs.org/v2/guide/state-management.html)
+
+[https://juejin.im/post/5a4353766fb9a044fb080927](https://juejin.im/post/5a4353766fb9a044fb080927)
+
+![](https://i.imgur.com/bmYXtIH.png)
+
+子链：this.$refs:提供了为子组件提供索引的方法，用特殊的属性ref为其增加一个索引
+
+详细代码请参考：
+
+[非父组件之间的通信](https://x1059455449.github.io/Vue-Cnode/seventh%20demo/%E9%9D%9E%E7%88%B6%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E9%80%92.html)
+
+## 使用slot分发内容 ##
+
+> 什么是slot（插槽）
+
+为了让组件可以组合，我们需要一种方式来混合父组件的内容与子组件自己的模板。这个过程被称为内容分发.Vue.js 实现了一个内容分发 API，使用特殊的 ‘slot’ 元素作为原始内容的插槽
+
+> 编译的作用域
+
+在深入内容分发 API 之前，我们先明确内容在哪个作用域里编译。假定模板为：
+
+	<child-component>
+		{{ message }}
+	</child-component>
+
+message 应该绑定到父组件的数据，还是绑定到子组件的数据？答案是父组件。组件作用域简单地说是：
+
+	父组件模板的内容在父组件作用域内编译
+	
+	子组件模板的内容在子组件作用域内编译
+
+> 插槽的用法
+
+
+父组件的内容与子组件相混合，从而弥补了视图的不足
+**混合父组件的内容与子组件自己的模板**
+
+单个插槽：
+
+	<div id="app">
+	        <my-component>
+	            <p>我是父组件的内容</p>
+	        </my-component>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	    <script>
+	    Vue.component('my-component',{
+	        template:'<div>\
+	        <slot>\
+	            如果父组件没有插入内容，我就作为默认出现\
+	        </slot>\
+	        </div>'
+	    })    
+	    var app = new Vue({
+	        el:'#app',
+	        data:{
+	
+	        }
+	    })
+	</script>
+
+具名插槽：
+
+	<div id="app">
+	        <my-component>
+	            <p>我是父组件的内容</p>
+	        </my-component>
+	        <hr>
+	        具名插槽: <br>
+	        <name-component>
+	            <h3 slot="header">标题</h3>
+	            <p>正文</p>
+	            <p>内容</p>
+	            <p slot="footer">底部</p>
+	        </name-component>
+	    </div>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	    <script>
+	
+	        Vue.component('my-component', {
+	            template: '<div>\
+	        <slot>\
+	            如果父组件没有插入内容，我就作为默认出现\
+	        </slot>\
+	        </div>'
+	        })
+	        Vue.component('name-component', {
+	            template: '<div><div class="header">\
+	                <slot name="header">\
+	                    \
+	                </slot>\
+	            </div>\
+	            <div class="container">\
+	                <slot>\
+	                    \
+	                </slot>\
+	            </div>\
+	            <div class="footer">\
+	                <slot name="footer">\
+	                    \
+	                </slot>\
+	            </div></div>'
+	        })
+	        var app = new Vue({
+	            el: '#app',
+	            data: {
+	
+	            }
+	        })
+	    </script>
+
+> 作用域插槽
+
+作用域插槽是一种特殊的slot，使用一个可以复用的模板来替换已经渲染的元素
+——从子组件获取数据
+
+**注意：**template模板是不会被渲染的
+
+[slot插槽](https://x1059455449.github.io/Vue-Cnode/seventh%20demo/%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD.html)
+
+> 访问slot
+
+通过this.$slots.(NAME)
+
+	mounted: function () {
+                //实例挂载完成后，访问slot
+                //本次访问的slot会出现Vnode这个虚拟节点，访问时要加[0]
+                var header = this.$slots.header
+                var text = this.$slots.header[0].elm.innerText
+                var outertext = this.$slots.header[0].elm.outerText
+                var html = this.$slots.header[0].elm.innerHTML
+                var outerhtml = this.$slots.header[0].elm.outerHTML
+                console.log(header)
+                console.log(text)
+                console.log(outertext)
+                console.log(html)
+                console.log(outerhtml)
+            }
+
+## 组件高级用法–动态组件 ##
+
+VUE给我们提供 了一个元素叫component
+作用是： 用来动态的挂载不同的组件
+实现：使用is特性来进行实现的
+
+[动态组件](https://x1059455449.github.io/Vue-Cnode/seventh%20demo/%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6.html)
+
+
+----------
+
+## 2018-01-08 ##
+
+## 自定义指令 ##
+
+### 自定义指令的基本用法 ###
+
+和组件类似分全局注册和局部注册，区别就是把component换成了derective
+
+### 钩子函数 ###
+
+指令定义函数提供了几个钩子函数（可选）：
+
+bind: 只调用一次，指令第一次绑定到元素时调用，用这个钩子函数可以定义一个在绑定时执行一次的初始化动作。
+
+inserted: 被绑定元素插入父节点时调用（父节点存在即可调用，不必存在于 document中）。
+
+update: 被绑定元素所在的模板更新时调用，而不论绑定值是否变化。通过比较更新前后的绑定值，可以忽略不必要的模板更新（详细的钩子函数参数见下）。
+
+componentUpdated: 被绑定元素所在模板完成一次更新周期时调用。
+
+unbind: 只调用一次， 指令与元素解绑时调用。
+
+### 钩子函数的参数有： ###
+
+el: 指令所绑定的元素，可以用来直接操作 DOM 
+
+binding: 一个对象，包含以下属性：
+
+	name: 指令名，不包括 v­ 前缀。
+
+	value: 指令的绑定值， 例如： v­my­directive=”1 + 1”, value 的值是 2。
+
+	oldValue: 指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无论值是否改变都可用。
+
+	expression: 绑定值的字符串形式。 例如 v­my­directive=”1 + 1” ， expression 的值是“1 + 1”。
+
+	arg: 传给指令的参数。例如 v­my­directive:foo， arg 的值是 “foo”
+
+	modifiers: 一个包含修饰符的对象。 例如： v­my­directive.foo.bar, 修饰符对象,,,modifiers 的值是 { foo: true, bar: true }。
+vnode: Vue 编译生成的虚拟节点。
+
+oldVnode: 上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用。
+
+[Vue官网：自定义指令](https://cn.vuejs.org/v2/guide/custom-directive.html#ad)
