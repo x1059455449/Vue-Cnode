@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>render函数的this.$slots的使用</title>
+</head>
+<body>
+    <div id="app">
+        <my-component>
+            <p>111</p>
+            <p>2222</p>
+            <h3 slot="header">biaoti</h3>
+            <h5 slot="footer">zuihou</h5>
+        </my-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    //第三个参数也是可选String|Array—作为我们构建函数的子节点来使用
+    //参数存的就是VNODE,createElement('header',header)返回的就是VNODE
+    Vue.component('my-component',{
+        render: function (createElement) {
+            debugger
+            var header = this.$slots.header//这里的内容返回的就是含有VNODE的数组
+            var main = this.$slots.default
+            var footer = this.$slots.footer
+            return createElement('div',[
+                createElement('header',header),
+                createElement('main',main),
+                createElement('footer',footer)
+            ])
+        }
+    })    
+    var app = new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>作用域插槽在render函数中的使用(作用域插槽向父组件传递数据)</title>
+</head>
+<body>
+    <div id="app">
+        <my-component>
+            <template scope="prop">
+                {{prop.text}}
+                {{prop.msg}}
+            </template>
+        </my-component>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+
+    Vue.component('my-component',{
+        //相当于<div> <slot :text="text"></slot> </div>
+        render:function (createElement) {
+            return createElement('div',this.$scopedSlots.default({
+                text:'我是来自子组件的信息',
+                msg:'scopetext'
+            })) 
+        }
+    })    
+    var app = new Vue({
+        el:'#app',
+        data:{
+            msg:'我是父组件的内容'
+        }
+    })
+    </script>
+
+</body>
+</html>

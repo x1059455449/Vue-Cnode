@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>render函数初体验</title>
+</head>
+
+<body>
+    <div id="app">
+        <child :level="level">没有值，默认显示</child>
+    </div>
+    <!-- <template id="hdom">
+        <div>
+            <h1 v-if="level==1">
+                <slot></slot>
+            </h1>
+            <h2 v-if="level==2">
+                <slot></slot>
+            </h2>
+            <h3 v-if="level==3">
+                <slot></slot>
+            </h3>
+        </div>
+    </template> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        //使用Vue组件定义
+        //template过长时
+        // Vue.component('child', {
+        //     template: '#hdom',
+        //     props:['level']
+        // })
+
+        //使用render函数进行定义组件
+        Vue.component('child',{
+            render:function (createElement) {
+                return createElement('h' + this.level,
+                this.$slots.default
+                )                
+            },
+            props:['level']
+        })    
+        var app = new Vue({
+            el: '#app',
+            data: {
+                level:2
+            }
+        })
+    </script>
+</body>
+
+</html>

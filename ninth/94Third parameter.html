@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>render函数初体验</title>
+</head>
+
+<body>
+    <div id="app">
+        <child></child>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+
+        //使用render函数进行定义组件
+        Vue.component('child',{
+            //第三个参数也是可选String|Array—作为我们构建函数的子节点来使用
+            //参数存的就是VNODE
+            render:function (createElement) {
+                return createElement('div',[
+                    createElement('h1','我是标题'),
+                    createElement('h6','66666666')
+                ])                
+            }
+        })    
+        var app = new Vue({
+            el: '#app',
+            data: {
+                
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v­model在render函数中的使用</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <my-component :name="name" @input="showName"></my-component> -->
+        <hr> {{name}}
+        <my-component :name="name" v-model="name"></my-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+    //需求：输入框输入什么就渲染什么
+    Vue.component('my-component',{
+        props:['name'],
+        render:function (createElement) {
+            var self = this //this指的是当前VUE实例
+            return createElement('input',{
+                domProps:{
+                    value:self.name
+                },
+                on:{
+                    //input默认会把原生的event事件传进来
+                    input:function (event) {//可以写click
+                        //此时的this指的是? windows对象
+                        debugger
+                        var a = this
+                        self.$emit('input',event.target.value)
+                    }
+                }
+            })
+        }
+    })    
+    var app = new Vue({
+        el:'#app',
+        data:{
+            name:'sai'
+        }
+        // methods:{
+        //     showName:function (value) {
+        //         this.name = value
+        //     }
+        // }
+    })
+    </script>
+
+</body>
+</html>

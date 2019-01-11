@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件的使用方法</title>
+</head>
+<body>
+    <div id="app">
+        <my-component value="hahahhahahhahahah">
+
+        </my-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+   //this.text=====context.props.text
+   //this.$slots.default====context.children
+    Vue.component('my-component',{
+        functional:true,//便是当前Vue的实例无状态，无实例
+        render:function (createElement,context) {//要拿到外界传递进来的值，只等通过context来传递
+            return createElement('button',{
+                on:{
+                    click:function () {
+                        debugger
+                        var a =this
+                        console.log(context)
+                        console.log(context.parent)
+                        console.log(context.parent.msg)
+                        console.log(context.props.value)
+                        console.log(this.value)//undefined                    }
+                    }
+                }
+            },'点击学习context')
+        }
+    })    
+    var app = new Vue({
+        el:'#app',
+        data:{
+            msg:'我是来自父组件的信息'
+        }
+    })
+    </script>
+
+</body>
+</html>

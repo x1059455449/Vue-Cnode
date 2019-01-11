@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>render函数初体验</title>
+</head>
+
+<body>
+    <div id="app">
+        <child></child>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+
+        //使用render函数进行定义组件
+        Vue.component('child',{
+            //第二个参数是数据对象--只能是object
+            render:function (createElement) {
+                return createElement({
+                    template:'<div>6666666</div>'
+                },{
+                    'class':{
+                        foo:true,
+                        baz:false
+                    },
+                    style:{
+                        color:'blue',
+                        fontSize:'16px'
+                    },
+                    //正常的html属性
+                    attrs:{
+                        id:'foo',
+                        src:'http://baidu.com'
+                    },
+                    //用来写原生的BOM节点
+                    domProps:{
+                        innerHTML:'<span style="color:red">3333</span>'
+                    }
+                })                
+            }
+        })    
+        var app = new Vue({
+            el: '#app',
+            data: {
+                
+            }
+        })
+    </script>
+</body>
+
+</html>
