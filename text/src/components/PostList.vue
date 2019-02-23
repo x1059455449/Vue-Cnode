@@ -138,7 +138,7 @@ li span {
     font-size: 14px;
     color: #987ec0;
 }
-.put_good .put_top {
+.put_good ,.put_top {
     background: #80bd01;
     padding: 2xp 4px;
     border-radius: 3px;
